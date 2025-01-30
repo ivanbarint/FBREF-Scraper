@@ -37,7 +37,6 @@ def season_results_and_fixtures(competition, year):
 
     df = pd.DataFrame(rows, columns = headers)
     
-    df['start_time'] = df['start_time'].str.strip()  
     df['attendance'] = df['attendance'].str.replace(',', '').replace('', 0).astype(int)
     df = df.apply(pd.to_numeric, errors='ignore')
 
@@ -49,12 +48,12 @@ def season_results_and_fixtures(competition, year):
     df['home_score'] = pd.to_numeric(df['home_score'], errors='coerce')
     df['away_score'] = pd.to_numeric(df['away_score'], errors='coerce')
 
-    df['datetime'] = pd.to_datetime(df['date'].astype(str) + ' ' + df['start_time'])
+    df['date'] = pd.to_datetime(df['date'].astype(str))
     
-    proper_order = ['gameweek', 'dayofweek', 'datetime', 'home_team', 'home_xg', 'home_score', 'away_score', 'away_xg', 'away_team', 'attendance', 'venue', 'referee', 'match_report', 'notes']
+    proper_order = ['gameweek', 'dayofweek', 'date', 'start_time', 'home_team', 'home_xg', 'home_score', 'away_score', 'away_xg', 'away_team', 'attendance', 'venue', 'referee', 'match_report', 'notes']
     
     df = df[proper_order]
     
-    df['match_url'] = match_urls
+    df['match_url'] = pd.Series(match_urls)
     
     return df
