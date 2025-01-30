@@ -57,6 +57,4 @@ def season_results_and_fixtures(competition, year):
     
     df['match_url'] = match_urls
     
-    print(match_urls)
-    
     return df
