@@ -1,6 +1,6 @@
 def season_results_and_fixtures(competition, year):
     import pandas as pd
-    from internal_packages import check_comp
+    import check_comp
     import requests
     from bs4 import BeautifulSoup
     from datetime import datetime

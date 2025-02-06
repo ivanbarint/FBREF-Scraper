@@ -2,7 +2,7 @@ def squad_stats(competition, year, data_type):
 
     try:
         import pandas as pd
-        from internal_packages import check_comp
+        import check_comp
         import requests
         from bs4 import BeautifulSoup
 
@@ -37,7 +37,7 @@ def squad_stats(competition, year, data_type):
         df.insert(0, "team", team_names)
         df.columns = headers
 
-        return url, df
+        return df
     except: print("Invalid data input")
 
 def opponent_stats(competition, year, data_type):
@@ -79,5 +79,5 @@ def opponent_stats(competition, year, data_type):
         df.insert(0, "team", team_names)
         df.columns = headers
 
-        return url, df
+        return df
     except: print("Invalid data input")

@@ -1,7 +1,7 @@
 def player_stats(competition, year, data_type):
     
     import pandas as pd
-    from internal_packages import check_comp
+    import check_comp
     import requests
     from bs4 import BeautifulSoup
     
