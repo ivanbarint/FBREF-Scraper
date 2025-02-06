@@ -1,6 +1,4 @@
 def get_basic_position(style):
-    
-    print(style)
 
     splitted = style.split('(')
     width = float(splitted[2].split('%')[0])
@@ -24,9 +22,6 @@ def get_detailed_position(style, gk, df, mf, fw):
     splitted = style.split('(')
     width = float(splitted[2].split('%')[0])
     height = float(splitted[1].split('%')[0])
-    
-    print(width)
-    print(height)
     
     right_position = ""
     

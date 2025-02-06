@@ -55,7 +55,7 @@ def player_stats(competition, year, data_type):
 def full_keeper_stats(competition, year):
     
     import pandas as pd
-    from internal_packages import check_comp
+    import check_comp
     import requests
     from bs4 import BeautifulSoup
     
@@ -122,7 +122,7 @@ def full_keeper_stats(competition, year):
 def full_player_stats(competition, year):
     
     import pandas as pd
-    from internal_packages import check_comp
+    import check_comp
     import requests
     from bs4 import BeautifulSoup
     
