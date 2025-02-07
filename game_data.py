@@ -148,3 +148,58 @@ def away_player_stats(comp, year, home_team, away_team):
             df = df.fillna(0)
             
             return df
+        
+def shots(comp, year, home_team, away_team):
+    
+    import scores_and_fixtures
+    import check_name
+    from get_position import get_basic_position, get_detailed_position
+    from datetime import datetime
+    import pandas as pd
+    import requests
+    from bs4 import BeautifulSoup
+    from collections import defaultdict
+
+    results_df = scores_and_fixtures.season_results_and_fixtures(comp, year)
+    home_team = check_name.get_team_name(home_team)
+    away_team = check_name.get_team_name(away_team)
+    
+    for i, row in results_df.iterrows():
+        if row['home_team'] == home_team and row['away_team'] == away_team:
+            url = f"https://fbref.com/{row['match_url']}"
+
+            resp = requests.get(url) 
+            resp.encoding = 'utf-8'
+            soup = BeautifulSoup(resp.text.replace('<!--', '').replace('--!>', ''), 'html.parser')
+            
+            table = soup.find('table', {'id':'shots_all'})
+                    
+            headers, minutes, shot_values = [], [], []
+            
+            th = table.find_all('th', {'scope':'col'})
+            for h in th:
+                headers.append( h.get('data-stat'))
+                
+            th = table.tbody.find_all('th', {'data-stat':'minute'})
+            for h in th:
+                minutes.append(h.get_text())
+                
+            df = pd.DataFrame(list(zip(minutes)))
+                
+            tr = table.tbody.find_all('tr')
+            for r in tr:
+                shot = []
+                data = r.find_all('td')
+                for d in data:
+                    shot.append(d.get_text())
+                shot_values.append(shot)
+                    
+            shot_df = pd.DataFrame(shot_values)
+                
+            df = pd.concat([df, shot_df], axis = 1)
+            
+            df.columns = headers
+            
+            df = df.loc[df['player'] != ""].reset_index()
+            
+            return df
