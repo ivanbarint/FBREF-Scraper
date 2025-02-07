@@ -1,4 +1,4 @@
-def home_game_stats(comp, year, home_team, away_team):
+def home_player_stats(comp, year, home_team, away_team):
     
     import scores_and_fixtures
     import check_name
@@ -74,7 +74,7 @@ def home_game_stats(comp, year, home_team, away_team):
             return df
         
         
-def away_game_stats(comp, year, home_team, away_team):
+def away_player_stats(comp, year, home_team, away_team):
     
     import scores_and_fixtures
     import check_name

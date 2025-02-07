@@ -37,7 +37,7 @@ def season_results_and_fixtures(competition, year):
 
     df = pd.DataFrame(rows, columns = headers)
     
-    df['attendance'] = df['attendance'].str.replace(',', '').replace('', 0).astype(int)
+    ## df['attendance'] = df['attendance'].str.replace(',', '').replace('', 0).astype(int)
     df = df.apply(pd.to_numeric, errors='ignore')
 
     df = df[df['date'] != ""].reset_index(drop=True)
